@@ -1,0 +1,6 @@
+services:
+  get_files:
+    build: get-files
+    environment:
+      KAFKA_HOST: kafka
+      KAFKA_PORT: 9092
