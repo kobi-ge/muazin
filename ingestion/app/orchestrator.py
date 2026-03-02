@@ -12,7 +12,7 @@ class Orchesrator:
             metadata = self.metadata_extractor.get_metadata(file_path)
             result = {
                 "metadata": metadata,
-                "file_path": file_path
+                "file_path": str(file_path)
             }
             self.producer.produce_to_kafka(result, topic_name)
 
