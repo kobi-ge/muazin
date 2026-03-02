@@ -20,4 +20,19 @@ class MongoConnection:
         except errors.ConnectionFailure as e:
             self.logger.error(f"error connecting to mongo: {e}")
 
+    def create_colection(self):
+        try:
+            self.db = self.client['muazin']
+            self.collection = self.db['audio']
+            self.logger.info(f"collection: {self.collection} created")
+        except errors.PyMongoError as e:
+            self.logger.error(f"error: {e}")
+
+    def insert(self, data):
+        try:
+            self.client.insertOne(data)
+            self.logger.info(f"dasta: {data} inserted to mongo")
+        except errors.PyMongoError as e:
+            self.logger.error(f"error inserting data: {e}")
+
 
