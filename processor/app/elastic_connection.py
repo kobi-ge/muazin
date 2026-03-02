@@ -1,4 +1,5 @@
-from elasticsearch import Elasticsearch, ConnectionError
+from elasticsearch import Elasticsearch, ConnectionError, RequestError
+from elasticsearch import helpers
 import logging
 
 
@@ -24,6 +25,15 @@ class ElasticConnection:
             self.logger.info(f"sindex successfully created: {result}")
         except Exception as e:
             self.logger.error(f"error creating index {index_name}: {e}")
+
+    def insert(self, index_name, data, uniqe_id):
+        try:
+            result = self.es.index(index=index_name, document=data, id=uniqe_id)
+            self.logger.error(f"data: {data} inserted to index: {index_name}")
+        except RequestError as e:
+            self.logger.error(f"error inserting data: {e}")
+
+
 
 
 
