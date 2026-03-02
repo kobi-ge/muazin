@@ -8,7 +8,9 @@ class MetadataExtractor:
 
     def get_metadata(self, file_path):
         created_at = file_path.stat().st_birthtime
-        created_at = datetime.fromtimestamp(created_at)
-        return {"name": file_path.name,
+        created_at = str(datetime.fromtimestamp(created_at))
+        result = {"name": file_path.name,
             "size": file_path.stat().st_size,
             "created_at": created_at}
+        self.logger.info(f"metadata: {result}")
+        return result
