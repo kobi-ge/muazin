@@ -17,3 +17,7 @@ def set_mapping():
         }
     }
     return mappings
+
+def file_to_bytes(file_path):
+    with open(file_path, "rb") as file:
+        return file.read()
