@@ -29,7 +29,7 @@ class ElasticConnection:
     def insert(self, index_name, data, unique_id):
         try:
             result = self.es.index(index=index_name, document=data, id=unique_id)
-            self.logger.error(f"data: {data} inserted to index: {index_name}")
+            self.logger.info(f"data: {data} inserted to index: {index_name}")
         except RequestError as e:
             self.logger.error(f"error inserting data: {e}")
 

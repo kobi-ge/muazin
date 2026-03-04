@@ -31,5 +31,4 @@ class KafkaConsumer:
                 return json.loads(value)
         except KeyboardInterrupt:
             pass
-        finally:
-            self.consumer.close()
+
