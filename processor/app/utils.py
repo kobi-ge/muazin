@@ -1,5 +1,5 @@
 def extract_fields(data: dict):
-    path = data["metadata"]["file_path"]
+    path = data["file_path"]
     ctime = data["metadata"]["created_at"]
     size = data["metadata"]['size']
     metadata = data["metadata"]
