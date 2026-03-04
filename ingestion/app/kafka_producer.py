@@ -30,6 +30,9 @@ class KafkaProducer:
         )
         self.logger.info(f"value: {data} sent to topic {topic_name}")
         self.producer.poll(0)
+
+    def flush(self):
         self.producer.flush()
+
 
         

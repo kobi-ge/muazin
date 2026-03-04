@@ -22,7 +22,7 @@ orchestrator = Orchesrator(
 
 def main():
     producer.set_producer()
-    orchestrator.run(directory_path="./podcasts/", topic_name="metadata")
-
+    orchestrator.run(directory_path="/app/data/podcasts", topic_name="metadata")
+    producer.flush()
 main()
 
