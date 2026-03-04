@@ -12,11 +12,11 @@ logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %
 
 config = ProcessorConfig(
         es_host=os.getenv("ES_HOST"), 
-        es_port=os.getenv("ES_PORT"), 
+        es_port=int(os.getenv("ES_PORT")), 
         kafka_host=os.getenv("KAFKA_HOST"),
-        kafka_port=os.getenv("KAFKA_PORT"),
+        kafka_port=int(os.getenv("KAFKA_PORT")),
         mongo_host=os.getenv("MONGO_HOST"),
-        mongo_port=os.getenv("MONGO_PORT"),
+        mongo_port=int(os.getenv("MONGO_PORT")),
         mongo_user=os.getenv("MONGO_USER"),
         mongo_password=os.getenv("MONGO_PASSWORD"),
         logger=logging.getLogger(ProcessorConfig.__module__))

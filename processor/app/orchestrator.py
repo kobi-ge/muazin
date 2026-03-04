@@ -1,5 +1,6 @@
 from unique_id import generate_unique_id
 from utils import extract_fields, set_mapping
+import time
 
 
 class ProcessorOrchestrator:
@@ -17,7 +18,24 @@ class ProcessorOrchestrator:
             self.elastic.insert(index_name, metadata, new_id)
             self.logger.info(f"message: {message} inserted to elastic")
 
+    # def init_svcs(self, topic_name, index_name):
+    #     self.consumer.set_consumer(topic_name)
+    #     self.elastic.connect()
+    #     self.elastic.create_index(index_name, set_mapping())
+
+
     def init_svcs(self, topic_name, index_name):
-        self.consumer.set_consumer(topic_name)
-        self.elastic.connect()
-        self.elastic.create_index(index_name, set_mapping())
+            while True:
+                try:
+                    self.logger.info("connecting to services")
+                    self.consumer.set_consumer(topic_name)
+                    self.elastic.connect()
+                    if not self.elastic.es.ping():
+                        raise ConnectionError("Elasticsearch not responding to ping")
+
+                    self.elastic.create_index(index_name, set_mapping())
+                    self.logger.info("All services ready!")
+                    break
+                except Exception as e:
+                    self.logger.warning(f"Services not ready: {e}. Retrying in 5s...")
+                    time.sleep(5)

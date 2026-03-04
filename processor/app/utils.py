@@ -1,5 +1,5 @@
 def extract_fields(data: dict):
-    path = data["metadata"]["file_path"]
+    path = data["file_path"]
     ctime = data["metadata"]["created_at"]
     size = data["metadata"]['size']
     metadata = data["metadata"]
@@ -10,7 +10,10 @@ def set_mapping():
         "properties": {
             "name": {"type": "text"},
             "size": {"type": "integer"},
-            "created_at": {"type": "date"}
+            "created_at": {
+                "type": "date",
+                "format": "yyyy-MM-dd HH:mm:ss.SSSSSS"
+                }
         }
     }
     return mappings

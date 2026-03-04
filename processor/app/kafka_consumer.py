@@ -26,10 +26,9 @@ class KafkaConsumer:
                     self.logger.error("ERROR: %s".format(msg.error()))
                     continue
                 value = msg.value().decode('utf-8')
-                self.logger.info("Consumed event from topic {topic}: key = {key:12} value = {value:12}".format(
-                    topic=msg.topic(), key=msg.key().decode('utf-8'), value=msg.value().decode('utf-8')))
+                self.logger.info("Consumed event from topic {topic}: value = {value:12}".format(
+                    topic=msg.topic(), value=msg.value().decode('utf-8')))
                 return json.loads(value)
         except KeyboardInterrupt:
             pass
-        finally:
-            self.consumer.close()
+
