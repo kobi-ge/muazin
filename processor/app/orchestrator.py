@@ -16,7 +16,6 @@ class ProcessorOrchestrator:
             path, ctime, size, metadata = extract_fields(message)
             new_id = generate_unique_id(path, ctime, size)
             self.elastic.insert(index_name, metadata, new_id)
-            #file_bytes = file_to_bytes(path)
             self.mongo.insert(path, new_id)
 
     def init_svcs(self, topic_name, index_name):

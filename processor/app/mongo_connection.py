@@ -5,12 +5,10 @@ import logging
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
 
 class MongoConnection:
-    def __init__(self, host , port, user, password, logger):
+    def __init__(self, host , port, logger):
         self.host = host
         self.port = port
-        self.user = user
-        self.password = password
-        self.uri = f"mongodb://{self.user}:{self.password}@{self.host}:{self.port}/?authSource=admin"
+        self.uri = f"mongodb://{self.host}:{self.port}"
         self.logger = logger
 
     def connect(self):

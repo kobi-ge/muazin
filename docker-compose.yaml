@@ -2,9 +2,6 @@ services:
   mongo:
     image: mongo
     restart: always
-    environment:
-      MONGODB_INITDB_ROOT_USERNAME: user
-      MONGODB_INITDB_ROOT_PASSWORD: pass
     ports:
       - 27017:27017
     volumes:
@@ -15,8 +12,6 @@ services:
     environment:
       MONGO_HOST: mongo
       MONGO_PORT: 27017
-      MONGO_USER: user
-      MONGO_PASSWORD: pass
       ES_HOST: elasticsearch
       ES_PORT: 9200
       KAFKA_HOST: kafka
@@ -83,7 +78,6 @@ services:
       - "9200:9200"
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
-
     healthcheck:
       test: curl -u elastic:elastic -s -f elasticsearch:9200/_cat/health >/dev/null || exit 1
       interval: 30s

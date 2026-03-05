@@ -1,3 +1,4 @@
 confluent_kafka
 pymongo
 elasticsearch==8.0
+kibana
