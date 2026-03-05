@@ -6,7 +6,6 @@ from elastic_connection import ElasticConnection
 from kafka_consumer import KafkaConsumer
 from mongo_connection import MongoConnection
 from orchestrator import ProcessorOrchestrator
-from unique_id import generate_unique_id
 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(name)s - %(message)s")
 
