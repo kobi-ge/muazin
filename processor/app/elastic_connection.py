@@ -15,7 +15,7 @@ class ElasticConnection:
             self.es = Elasticsearch(f"http://{self.host}:{self.port}")
             result = self.es.ping()
 
-            self.logger.info("connection established: ", result)
+            self.logger.info(f"connection established: {result}")
         except ConnectionError as e:
             self.logger.error(f"error connecting to elastic: {e}")
     

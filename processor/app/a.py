@@ -22,21 +22,16 @@ class MongoConnection:
             return self.client
         except errors.ConnectionFailure as e:
             self.logger.error(f"error connecting to mongo: {e}")
-
-    def create_fs(self):
+    
+    def create_fs(self, file_path, unique_id):
         try:
             self.db = self.client['muazin']
             self.fs = gridfs.GridFS(self.db)
-            self.logger.info(f"gridfs: {self.fs} created")
-        except errors.PyMongoError as e:
-            self.logger.error(f"error: {e}")
-
-    def insert(self, data, unique_id):
-        try:
-            with open (data, "rb") as file:
-                self.fs.put(data=file, _id=unique_id)
-                self.logger.info(f"dasta: {data} inserted to mongo")
-        except errors.PyMongoError as e:
-            self.logger.error(f"error inserting data: {e}")
-
-
+            with open(file_path, 'rb') as file_data:
+                self.fs.put(file_data, filename=unique_id)
+        except Exception as e:
+            raise e
+        
+a = MongoConnection("localhost", 27017, "user", "pass", logger=logging.getLogger(MongoConnection.__module__))
+a.connect()
+a.create_fs(r"C:\podcasts\download (1).wav", "sdfgdsf")

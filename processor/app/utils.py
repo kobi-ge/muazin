@@ -1,3 +1,10 @@
+import hashlib
+
+def generate_unique_id(path, ctime, size):
+    full_str = path + ctime + str(size)
+    res = hashlib.md5(full_str.encode())
+    return res.hexdigest()
+
 def extract_fields(data: dict):
     path = data["file_path"]
     ctime = data["metadata"]["created_at"]
@@ -17,3 +24,7 @@ def set_mapping():
         }
     }
     return mappings
+
+def file_to_bytes(file_path):
+    with open(file_path, "rb") as file:
+        return file.read()
