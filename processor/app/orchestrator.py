@@ -1,4 +1,6 @@
-from utils import extract_fields, set_mapping, generate_unique_id, file_to_bytes
+from utils import extract_fields, set_mapping, generate_unique_id
+from kibana import post_to_kibana
+from stt import speech_to_text
 import time
 
 
@@ -14,8 +16,11 @@ class ProcessorOrchestrator:
         while True:
             message = self.consumer.consume()
             path, ctime, size, metadata = extract_fields(message)
+            text = speech_to_text(path)
+            metadata["text"] = text
             new_id = generate_unique_id(path, ctime, size)
             self.elastic.insert(index_name, metadata, new_id)
+            #post_to_kibana(index_name)
             self.mongo.insert(path, new_id)
 
     def init_svcs(self, topic_name, index_name):
