@@ -7,6 +7,7 @@ def speech_to_text(file_path):
         audio = r.record(source)
     try:
         s = r.recognize_google(audio)
-        print("Text: "+s)
+        return s
     except Exception as e:
         print("Exception: "+str(e))
+

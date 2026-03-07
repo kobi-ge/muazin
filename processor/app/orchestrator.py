@@ -20,7 +20,6 @@ class ProcessorOrchestrator:
             metadata["text"] = text
             new_id = generate_unique_id(path, ctime, size)
             self.elastic.insert(index_name, metadata, new_id)
-            #post_to_kibana(index_name)
             self.mongo.insert(path, new_id)
 
     def init_svcs(self, topic_name, index_name):
