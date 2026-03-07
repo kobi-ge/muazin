@@ -1,5 +1,5 @@
 from utils import extract_fields, set_mapping, generate_unique_id
-from kibana import post_to_kibana
+from kibana_api import post_to_kibana
 from stt import speech_to_text
 import time
 

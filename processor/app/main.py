@@ -18,8 +18,6 @@ config = ProcessorConfig(
         kafka_port=int(os.getenv("KAFKA_PORT")),
         mongo_host=os.getenv("MONGO_HOST"),
         mongo_port=int(os.getenv("MONGO_PORT")),
-        #mongo_user=os.getenv("MONGO_USER"),
-        #mongo_password=os.getenv("MONGO_PASSWORD"),
         logger=logging.getLogger(ProcessorConfig.__module__))
 consumer = KafkaConsumer(host=config.kafka_host, port=config.kafka_port, logger=Logger.get_logger())
 es = ElasticConnection(host=config.es_host, port=config.es_port, logger=Logger.get_logger())
