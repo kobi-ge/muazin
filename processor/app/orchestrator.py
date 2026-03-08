@@ -1,7 +1,11 @@
 from utils import extract_fields, set_mapping, generate_unique_id
-from kibana_api import post_to_kibana
 from stt import speech_to_text
+from hostility_level_logic import manager
 import time
+
+
+hostile_list = "R2Vub2NpZGUvV2FyIENyaW1lcyxBcGFydGhlaWQsTWFzc2FjcmUsTmFrYmEsRGlzcGxhY2VtZW50LEh1bWFuaXRhcmlhbiBDcmlzaXMsQmxvY2thZGUvT2NjdXBhdGlvYixSZWZ1Z2VlcyxJQ0MsQkRT"
+least_hostile_list = "RnJlZWRvbSBGbG90aWxsYSxSZXNpc3RhbmNlLExpYmVyYXRpb24sRnJlZSBQYWxlc3RpbmUsR2F6YSxDZWFzZWZpcmUsUHJvdGVzdCxVTlJXQQ=="
 
 
 
@@ -18,6 +22,7 @@ class ProcessorOrchestrator:
             path, ctime, size, metadata = extract_fields(message)
             text = speech_to_text(path)
             metadata["text"] = text
+            metadata['hostility_stats'] = manager(hostile_list, least_hostile_list, text)
             new_id = generate_unique_id(path, ctime, size)
             self.elastic.insert(index_name, metadata, new_id)
             self.mongo.insert(path, new_id)

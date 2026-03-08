@@ -1,4 +1,4 @@
-
+from decode_lists import decode_list
 
 a = ['genocide', 'war crimes', 'apartheid', 'massacre', 'nakba', 'displacement', 'humanitarian crisis', 'blockade', 'occupatiob', 'refugees', 'icc', 'bds']
 b = ['freedom flotilla', 'resistance', 'liberation', 'free palestine', 'gaza', 'ceasefire', 'protest', 'unrwa']
@@ -23,7 +23,7 @@ def set_bds_percent(hostile_list, less_hostile_list, text):
         if word in less_hostile_list:
             hostility_level += less_hostile
     hostility_percent = 100 / len(text) * hostility_level
-    return hostility_level, hostility_percent
+    return hostility_percent
 
 
 def threshold(percentage):
@@ -37,4 +37,12 @@ def set_threat_level(percentage):
     else:
         return "none"
 
+def manager(hostile_list_encoded, less_hostile_list_encoded, text):
+    hostile_list = decode_list(hostile_list_encoded)
+    less_hostile_list = decode_list(less_hostile_list_encoded)
+    data = {}
+    data['bds_percent'] = set_bds_percent(hostile_list, less_hostile_list, text)
+    data['is_bds'] = threshold(data['bds_percent'])
+    data['bds_threat_level'] = set_threat_level(data['bds_percent'])
+    return data
 
