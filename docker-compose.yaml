@@ -98,4 +98,3 @@ volumes:
   kafka_kraft:
   mongo-data:
 
-

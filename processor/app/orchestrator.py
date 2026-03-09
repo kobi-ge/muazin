@@ -22,7 +22,7 @@ class ProcessorOrchestrator:
             path, ctime, size, metadata = extract_fields(message)
             text = speech_to_text(path)
             metadata["text"] = text
-            metadata['hostility_stats'] = manager(hostile_list, least_hostile_list, text)
+            metadata['bds_percent'], metadata['is_bds'], metadata['bds_threat_level'] = manager(hostile_list, least_hostile_list, text)
             new_id = generate_unique_id(path, ctime, size)
             self.elastic.insert(index_name, metadata, new_id)
             self.mongo.insert(path, new_id)

@@ -20,7 +20,11 @@ def set_mapping():
             "created_at": {
                 "type": "date",
                 "format": "yyyy-MM-dd HH:mm:ss.SSSSSS"
-                }
+                },
+            "text": {"type": "text"},
+            "bds_percent": {"type": "float"},
+            "is_bds": {"type": "boolean"},
+            "bds_threat_level": {"type": "keyword"}
         }
     }
     return mappings
